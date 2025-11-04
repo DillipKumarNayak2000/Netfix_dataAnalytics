@@ -61,52 +61,6 @@ flowchart TD
                 └───────────────────────────┘
 
 
-    %% Data Sources
-    A[GitHub API (Netflix Dataset)] --> B[Azure Data Factory<br>(Ingestion Pipeline)]
-
-    %% Bronze Layer
-    B --> C[Azure Data Lake Storage (Bronze Layer)<br>Raw Data: JSON / CSV]
-    C --> D[Databricks Notebook: bronze_to_silver.py<br>(AutoLoader + ETL)]
-
-    %% Silver Layer
-    D --> E[Delta Lake (Silver Layer)<br>Cleaned & Standardized Data]
-    E --> F[Delta Live Tables (DLT)<br>Data Quality & Streaming Pipeline]
-
-    %% Gold Layer
-    F --> G[Delta Lake (Gold Layer)<br>Curated Business Tables]
-    G --> H[Analytics & Reporting<br>(Power BI / Tableau / SQL Queries)]
-
-    %% Styling and Grouping
-    subgraph BronzeLayer[Bronze Layer 🟤]
-    C
-    end
-
-    subgraph SilverLayer[Silver Layer ⚪]
-    D
-    E
-    end
-
-    subgraph DLTLayer[DLT & Streaming 💠]
-    F
-    end
-
-    subgraph GoldLayer[Gold Layer 🟡]
-    G
-    H
-    end
-
-    %% Flow styling
-    classDef bronze fill:#8B4513,stroke:#000,stroke-width:1,color:#fff;
-    classDef silver fill:#C0C0C0,stroke:#000,stroke-width:1,color:#000;
-    classDef gold fill:#FFD700,stroke:#000,stroke-width:1,color:#000;
-    classDef dlt fill:#4C9AFF,stroke:#000,stroke-width:1,color:#fff;
-
-    class C bronze;
-    class D,E silver;
-    class F dlt;
-    class G,H gold;
-
-
 
 ## 🏗️ Project Architecture
 📦 netflix-data-pipeline
